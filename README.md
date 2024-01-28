@@ -14,7 +14,7 @@ Welcome to the JS Solutions repository! This collection features simple and effe
 
 ## Problem Solutions
 
-Explore the `solutions` directory to find organized JavaScript solutions.
+Explore the respective `solution` directory to find organized JavaScript solutions.
 
 ## How to Contribute
 
@@ -22,7 +22,7 @@ Contributions are welcome! If you have a new problem-solving solution to share o
 
 1. Fork the repository.
 2. Create a new branch for your changes.
-3. Add your solution in the `solutions` directory.
+3. Add your solution in the respective `solution` directory.
 4. Write a concise explanation in the README.
 5. Submit a pull request.
 
