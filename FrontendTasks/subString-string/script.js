@@ -1,15 +1,15 @@
-// function subStringsOfString(input) {
-//     let subStrings = [];
-//     for (let i = 0; i < input.length; i++) {
-//         for (let j = i + 1; j <= input.length; j++) {
-//             subStrings.push(input.slice(i, j));
-//         }
-//     }
-//     return subStrings;
-// }
-// const string = "geeksforgeeks";
-// const arrOfSubstrings = subStringsOfString(string);
-// console.log(arrOfSubstrings);
+function subStringsOfString(input) {
+  let subStrings = [];
+  for (let i = 0; i < input.length; i++) {
+    for (let j = i + 1; j <= input.length; j++) {
+      subStrings.push(input.slice(i, j));
+    }
+  }
+  return subStrings;
+}
+const string = "geeksforgeeks";
+const arrOfSubstrings = subStringsOfString(string);
+console.log(arrOfSubstrings);
 
 // another method
 

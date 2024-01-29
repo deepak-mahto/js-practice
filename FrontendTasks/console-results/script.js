@@ -81,20 +81,20 @@ const arrOfElements = clothingStock.filter(
 );
 console.log(arrOfElements);
 
-// 3a: Console all the different colours available for women's shirts
+// Console all the different colours available for women's shirts
 
 clothingStock.map(
   ({ color, category }) => category === "women shirt" && console.log(color)
 );
 
-// 3b. Console all the different colours available for men shirt which are currently in stock.
+// Console all the different colours available for men shirt which are currently in stock.
 
 clothingStock.map(
   ({ color, inStock, category }) =>
     category === "men shirt" && inStock && console.log(color)
 );
 
-// 3c: Console an array which only contains the elements which are in stock.
+// Console an array which only contains the elements which are in stock.
 
 const productsInStock = clothingStock.filter(({ inStock }) => inStock);
 console.log(productsInStock);
