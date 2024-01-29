@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <title>Show Cars</title>
+</head>
+<body>
+    <div id="main-container">
+        <h1>Show Cars with Model and Year</h1>
+        <div id="app">
+            <input type="text" class="input" name="brand" placeholder="brand">
+            <input type="text" class="input" name="model" placeholder="model">
+            <input type="text" class="input" name="year" placeholder="year">
+            <button class="button">Save</button>
+        </div>
+        <div class="showCars"></div>
+    </div>
+    <script>
+        const app = document.querySelector("#app");
+        const inputs = document.querySelectorAll(".input");
+        const button = document.querySelector(".button") ;
+        const containerBox = document.querySelector(".showCars");
+        let brand, model, year;
+
+        let initialData = [
+          {
+            id: 1,
+            brand: "Toyota",
+            model: "Corola",
+            year: 2000
+          },
+          {
+            id: 2,
+            brand: "Maruti Suzuki",
+            model: "Omni",
+            year: 2005
+          },
+          {
+            id: 1,
+            brand: "Hyundai",
+            model: "Santro",
+            year: 1997
+          }
+        ];
+        function showCars(initialData){
+            for (let data of initialData) {
+                const container = document.createElement("div");
+                container.classList.add("container");
+                const model = document.createElement("p");
+                model.innerText = `${data.brand} ${data.model}`;
+                const year = document.createElement("p");
+                year.innerText = `Year: ${data.year}`;
+
+                container.appendChild(model);
+                container.appendChild(year);
+                containerBox.appendChild(container);
+            }
+        }
+
+        inputs.forEach((input) => {
+            input.addEventListener("keyup", (event) => {
+                let type = event.target.name;
+                if (type === "brand") {
+                    brand = event.target.value;
+                }
+                if (type === "model") {
+                    model = event.target.value;
+                }
+                if (type === "year") {
+                    year = event.target.value;
+                }
+            });
+        });
+
+        button.addEventListener("click", () => {
+            initialData = [...initialData, { brand, model, year }];
+            containerBox.innerHTML = "";
+            app.value = "";
+            showCars(initialData);
+            inputs.forEach((input) => input.value = "");
+        });
+        showCars(initialData);
+    </script>
+</body>
+</html>

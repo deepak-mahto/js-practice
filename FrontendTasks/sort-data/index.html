@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <title>Sorted Data</title>
+</head>
+<body>
+    <div id="main-container">
+        <h1>Sort the Data</h1>
+        <div class="btn-container">
+            <button class="lth" name="lth">Low to High</button>
+            <button class="htl" name="htl">High to Low</button>
+        </div>
+        <div id="app"></div>
+    </div>
+    <script>
+        const parentElement = document.getElementById("app");
+        const buttonElement = document.querySelector(".btn-container");
+
+        const initialData = [
+          {
+            id: 1,
+            item: "shirt",
+            price: 300
+          },
+          {
+            id: 2,
+            item: "tshirt",
+            price: 499
+          },
+          {
+            id: 3,
+            item: "jeans",
+            price: 500
+          },
+          {
+            id: 4,
+            item: "trousers",
+            price: 250
+          },
+          {
+            id: 5,
+            item: "chinos",
+            price: 300
+          }
+        ];
+
+        function showItems(initialData) {
+            for (let data of initialData) {
+                const listElement = document.createElement("li");
+                listElement.innerText = `${data.id} :: ${data.item}, Rs ${data.price}`;
+                parentElement.appendChild(listElement);
+            }
+
+            buttonElement.addEventListener("click", (event) => {
+                const button = event.target.name;
+                const sortedArray = [...initialData].sort((a, b) => 
+                    button === "lth" ? a.price - b.price : b.price - a.price
+                );
+                parentElement.innerHTML = "";
+                showItems(sortedArray);
+            });
+        }
+        showItems(initialData);
+    </script>
+</body>
+</html>

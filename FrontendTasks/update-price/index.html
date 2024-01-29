@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <title>Update Price</title>
+</head>
+<body>
+    <div id="main-container">
+        <h1>Update Price</h1>
+        <input type="text" id="id" placeholder="id">
+        <input type="text" id="price" placeholder="price">
+        <button class="button">Submit</button>
+        <div id="app"></div>
+    </div>
+    <script>
+        const idElement = document.getElementById("id");
+        const priceElement = document.getElementById("price");
+        const button = document.querySelector(".button");
+        const parentElement = document.getElementById("app");
+
+        let id, prodPrice;
+
+         let initialData = [
+          {
+            id: 1,
+            item: "shoes",
+            price: 100
+          },
+          {
+            id: 2,
+            item: "jacket",
+            price: 400
+          },
+          {
+            id: 3,
+            item: "hat",
+            price: 50
+          },
+          {
+            id: 4,
+            item: "sunglasses",
+            price: 250
+          },
+          {
+            id: 5,
+            item: "gloves",
+            price: 300
+          }
+        ];
+
+        function showItems(initialData) {
+            for (let data of initialData) {
+                const listElement = document.createElement("li");
+                listElement.innerText = `ID : ${data.id} :: ${data.item}, Rs. ${data.price}`;
+                parentElement.appendChild(listElement);
+            }
+        }
+
+        idElement.addEventListener("keyup", (event) => {
+            id = event.target.value;
+        });
+
+        priceElement.addEventListener("keyup", (event) => {
+            prodPrice = event.target.value;
+        });
+
+        button.addEventListener("click", () => {
+            initialData = id && prodPrice ? initialData.map((prod) => prod.id === Number(id) ? { ...prod, price: Number(prodPrice)}: prod) : initialData;
+            parentElement.innerHTML = "";
+            showItems(initialData); 
+        });
+
+        showItems(initialData);
+    </script>
+</body>
+</html>

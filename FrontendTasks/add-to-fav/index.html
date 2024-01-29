@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>add-to-fav</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+   <div id="m-container">
+        <h1>Add to Favourite</h1>
+        <div id="app">
+            <select id="select-brand">
+                <option value="">--Select an option--</option>
+            </select>
+            <button id="btn-add">Add to Favourite</button>
+            <ul id="show-favourite"></ul>
+        </div>
+   </div>
+    <script>
+        const brands = ["Nike", "Puma", "HRX", "H&M", "Addidas", "Reebok", "Under Armour"];
+        const selectedBrand = document.getElementById("select-brand");
+        const addButton = document.getElementById("btn-add");
+        const showBrands = document.getElementById("show-favourite");
+        let favouriteBrands = [];
+
+        for (let brand of brands) {
+            const optionElement = document.createElement("option");
+            optionElement.setAttribute("value", brand);
+            optionElement.innerText = brand;
+
+            selectedBrand.appendChild(optionElement);
+        }
+
+        selectedBrand.addEventListener("change", () => {
+            addButton.addEventListener("click", () => {
+                const brand = selectedBrand.value;
+                const isBrandAdded = favouriteBrands?.some(favourite => favourite === brand);
+                favouriteBrands = !isBrandAdded ? [...favouriteBrands, brand] : favouriteBrands;
+                displaySelectedBrands(favouriteBrands);
+            });
+        });
+
+        function displaySelectedBrands(favouriteBrands) {
+            showBrands.innerHTML = "";
+            for (let favBrand of favouriteBrands) {
+                const listElement = document.createElement("li");
+                listElement.innerText = favBrand;
+                showBrands.appendChild(listElement);
+            }
+        }
+    </script>
+</body>
+</html>

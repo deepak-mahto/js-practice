@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add rows to table</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <div id="container">
+        <h1>Add rows to the table</h1>
+        <table id="table">
+            <tr>
+                <td>Cell 1</td>
+                <td>Cell 2</td>
+                <td>Cell 3</td>
+            </tr>
+            <tr>
+                <td>Cell 1</td>
+                <td>Cell 2</td>
+                <td>Cell 3</td>
+            </tr>
+        </table>
+        <button id="insert">Insert</button>
+    </div>
+    <script>
+        const table = document.getElementById("table");
+        const insertButton = document.getElementById("insert");
+
+        insertButton.addEventListener("click", () => {
+            const row = table.insertRow(0);
+            for (let i = 0; i < 3; i++) {
+                let x = row.insertCell(i);
+                x.innerText = `new ${i + 1}`;
+            }
+        });
+    </script>
+</body>
+</html>

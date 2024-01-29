@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Highlight-Words</title>
+</head>
+<body>
+    <h1>Highlight Words more than 5</h1>
+    <p id="para">
+        hi, my name is deepak kumar, i want to become a full stack developer or mern stack developer which includes tech stacks 
+        like react.js, express.js, mongoDB, node.js and javascript which is the foundation of them apart from that i have also keen interset on python django
+        development engineer as of now.
+    </p>
+    <script>
+        const paraElement = document.getElementById("para");
+        paraElement.innerHTML = paraElement.innerText.split(" ").map(
+            word => word.length > 5 ? 
+            `<span style="background-color: green; color: white">${word}</span>`
+            : word
+            )
+            .join(" ");
+    </script>
+</body>
+</html>

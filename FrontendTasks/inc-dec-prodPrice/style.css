@@ -1,0 +1,21 @@
+@import url("https://uilight.netlify.app/main.css");
+
+#main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.card-horizontal {
+    margin-bottom: 2rem;
+}
+
+.price-component {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: xx-large;
+}

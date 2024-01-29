@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <title>Rating Component</title>
+</head>
+<body>
+    <div id="container">
+        <h1>Rate your Experience</h1>
+        <div id="app"></div>
+        <script>
+            function showStars(parent, count){
+                const parentContainer = document.getElementById(parent);
+                for (let i = 1; i <= count; i++) {
+                    const starElement = document.createElement("span");
+                    starElement.classList.add("material-icons-outlined", "star-ele");
+                    starElement.dataset.starvalue = i;
+                    starElement.innerText = "star_border"
+
+                    parentContainer.appendChild(starElement);
+                }
+                parentContainer.addEventListener("click", (event) => {
+                    const starValue = event.target.dataset.starvalue;
+                    const arr = document.querySelectorAll(".star-ele");
+                    for (let i = 0; i < count; i++) {
+                        if (i < starValue) {
+                            arr[i].classList.add("star");
+                        } else {
+                            arr[i].classList.remove("star");
+                        }
+                    }
+                });
+            }
+            showStars("app", 5);
+        </script>
+    </div>
+</body>
+</html>
