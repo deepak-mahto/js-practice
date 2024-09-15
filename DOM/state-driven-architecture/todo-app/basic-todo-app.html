@@ -91,34 +91,6 @@
       .todo-item button:hover {
         background-color: #c82333;
       }
-
-      #first-todo,
-      #last-todo {
-        margin-top: 10px;
-        margin-right: 10px;
-        padding: 10px 15px;
-        background-color: #ffc107;
-        color: white;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-      }
-
-      #last-todo {
-        margin-right: 0;
-      }
-
-      #first-todo:hover,
-      #last-todo:hover {
-        background-color: #e0a800;
-      }
-
-      .todo-actions {
-        margin-top: 20px;
-        margin-right: 0;
-        display: flex;
-        justify-content: space-between;
-      }
     </style>
   </head>
   <body>
@@ -129,12 +101,6 @@
         <button id="btn">Add todo</button>
       </div>
       <div id="todos-container"></div>
-      <div class="todo-actions">
-        <button id="first-todo" onclick="deleteFirstTodo()">
-          Delete First
-        </button>
-        <button id="last-todo" onclick="deleteLastTodo()">Delete Last</button>
-      </div>
     </div>
 
     <script>
@@ -152,16 +118,6 @@
         render();
         inputEle.value = "";
       });
-
-      function deleteFirstTodo() {
-        todos.splice(0, 1);
-        render();
-      }
-
-      function deleteLastTodo() {
-        todos.pop();
-        render();
-      }
 
       function deleteRandomTodo(index) {
         todos.splice(index, 1); // Delete the todo at the given index
