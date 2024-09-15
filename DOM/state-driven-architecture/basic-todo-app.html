@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Todo List</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+      }
+
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f4f4f4;
+      }
+
+      #app {
+        background-color: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 400px;
+      }
+
+      h1 {
+        text-align: center;
+        margin-bottom: 20px;
+        font-size: 24px;
+        color: #333;
+      }
+
+      #input-box {
+        width: 100%;
+        padding: 10px;
+        margin-right: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 16px;
+      }
+
+      #btn {
+        width: 100%;
+        padding: 10px 20px;
+        margin-top: 5px;
+        background-color: #28a745;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      #btn:hover {
+        background-color: #218838;
+      }
+
+      #todos-container {
+        margin-top: 20px;
+      }
+
+      .todo-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #f9f9f9;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        margin-bottom: 10px;
+      }
+
+      .todo-item span {
+        font-size: 16px;
+      }
+
+      .todo-item button {
+        padding: 5px 10px;
+        background-color: #dc3545;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      .todo-item button:hover {
+        background-color: #c82333;
+      }
+
+      #first-todo,
+      #last-todo {
+        margin-top: 10px;
+        margin-right: 10px;
+        padding: 10px 15px;
+        background-color: #ffc107;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      #last-todo {
+        margin-right: 0;
+      }
+
+      #first-todo:hover,
+      #last-todo:hover {
+        background-color: #e0a800;
+      }
+
+      .todo-actions {
+        margin-top: 20px;
+        margin-right: 0;
+        display: flex;
+        justify-content: space-between;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <h1>Todo List</h1>
+      <div>
+        <input id="input-box" type="text" placeholder="Enter todo" />
+        <button id="btn">Add todo</button>
+      </div>
+      <div id="todos-container"></div>
+      <div class="todo-actions">
+        <button id="first-todo" onclick="deleteFirstTodo()">
+          Delete First
+        </button>
+        <button id="last-todo" onclick="deleteLastTodo()">Delete Last</button>
+      </div>
+    </div>
+
+    <script>
+      let todos = [];
+
+      document.getElementById("btn").addEventListener("click", () => {
+        const inputEle = document.getElementById("input-box");
+        if (inputEle.value === "") {
+          alert("Please enter a todo");
+          return;
+        }
+        todos.push({
+          title: inputEle.value,
+        });
+        render();
+        inputEle.value = "";
+      });
+
+      function deleteFirstTodo() {
+        todos.splice(0, 1);
+        render();
+      }
+
+      function deleteLastTodo() {
+        todos.pop();
+        render();
+      }
+
+      function deleteRandomTodo(index) {
+        todos.splice(index, 1); // Delete the todo at the given index
+        render();
+      }
+
+      function createTodoComponent(todo, index) {
+        const div = document.createElement("div");
+        div.classList.add("todo-item");
+
+        const span = document.createElement("span");
+        span.innerHTML = todo.title;
+        div.appendChild(span);
+
+        const deleteBtn = document.createElement("button");
+        deleteBtn.innerHTML = "Delete";
+        deleteBtn.addEventListener("click", () => deleteRandomTodo(index));
+        div.appendChild(deleteBtn);
+
+        return div;
+      }
+
+      function render() {
+        document.getElementById("todos-container").innerHTML = "";
+        for (let i = 0; i < todos.length; i++) {
+          const todoComp = createTodoComponent(todos[i], i);
+          document.getElementById("todos-container").appendChild(todoComp);
+        }
+      }
+    </script>
+  </body>
+</html>
