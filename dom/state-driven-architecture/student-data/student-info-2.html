@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Table</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+      }
+
+      body {
+        display: flex;
+        justify-content: center;
+        height: 100vh;
+        background-color: #f4f4f4;
+        margin-top: 1rem;
+      }
+
+      .input-container {
+        background-color: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 600px;
+      }
+
+      h1 {
+        text-align: center;
+        margin-bottom: 20px;
+        font-size: 24px;
+        color: #333;
+      }
+
+      input {
+        width: calc(25% - 10px);
+        padding: 10px;
+        margin-right: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 16px;
+      }
+
+      #btn {
+        width: calc(25% - 10px);
+        padding: 10px 10px;
+        background-color: #28a745;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 15px;
+      }
+
+      #btn:hover {
+        background-color: #218838;
+      }
+
+      .input-and-button {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+      }
+
+      th,
+      td {
+        padding: 10px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+      }
+
+      th {
+        background-color: #4caf50;
+        color: white;
+      }
+
+      tbody tr:nth-child(even) {
+        background-color: #f9f9f9;
+      }
+
+      tbody tr:hover {
+        background-color: #ddd;
+      }
+
+      .delete-btn,
+      .edit-btn {
+        background-color: #dc3545;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        padding: 5px 10px;
+        margin-right: 5px;
+      }
+
+      .delete-btn:hover,
+      .edit-btn:hover {
+        background-color: #c82333;
+      }
+
+      .save-btn {
+        background-color: #28a745;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        padding: 5px 10px;
+        margin-right: 5px;
+      }
+
+      .save-btn:hover {
+        background-color: #218838;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <h1>Student Table</h1>
+
+      <div class="input-and-button input-container">
+        <input id="roll-no" type="text" placeholder="Enter roll no" />
+        <input id="name" type="text" placeholder="Enter name" />
+        <input id="subject" type="text" placeholder="Enter subject" />
+        <input id="marks" type="text" placeholder="Enter marks" />
+        <button id="btn">Add Student</button>
+      </div>
+
+      <table border="1">
+        <thead>
+          <tr>
+            <th>Roll no</th>
+            <th>Name</th>
+            <th>Subject</th>
+            <th>Marks</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="table-body">
+          <!-- Table rows will be inserted here -->
+        </tbody>
+      </table>
+    </div>
+
+    <script>
+      // State to hold table rows
+      let students = [];
+
+      // Add event listener for adding a new student
+      document.getElementById("btn").addEventListener("click", () => {
+        const rollNumber = document.getElementById("roll-no").value;
+        const name = document.getElementById("name").value;
+        const subject = document.getElementById("subject").value;
+        const marks = document.getElementById("marks").value;
+
+        if (rollNumber && name && subject && marks) {
+          students.push({ rollNumber, name, subject, marks });
+          renderTable();
+          clearInputs();
+        } else {
+          alert("Please fill out all fields.");
+        }
+      });
+
+      // Clear input fields after adding
+      function clearInputs() {
+        document.getElementById("roll-no").value = "";
+        document.getElementById("name").value = "";
+        document.getElementById("subject").value = "";
+        document.getElementById("marks").value = "";
+      }
+
+      // Function to render the table rows
+      function renderTable() {
+        const tableBody = document.getElementById("table-body");
+        tableBody.innerHTML = ""; // Clear the table
+
+        students.forEach((student, index) => {
+          const row = createStudentRow(student, index);
+          tableBody.appendChild(row);
+        });
+      }
+
+      // Function to create a row for a student
+      function createStudentRow(student, index) {
+        const tr = document.createElement("tr");
+
+        tr.innerHTML = `
+          <td><span>${student.rollNumber}</span></td>
+          <td><span>${student.name}</span></td>
+          <td><span>${student.subject}</span></td>
+          <td><span>${student.marks}</span></td>
+          <td>
+            <button class="edit-btn" onclick="editStudent(${index}, this)">Edit</button>
+            <button class="delete-btn" onclick="deleteStudent(${index})">Delete</button>
+          </td>
+        `;
+
+        return tr;
+      }
+
+      // Function to delete a student
+      function deleteStudent(index) {
+        students.splice(index, 1); // Remove student from the array
+        renderTable(); // Re-render the table
+      }
+
+      // Function to edit a student
+      function editStudent(index, button) {
+        const row = button.closest("tr");
+        const cells = row.querySelectorAll("td span");
+
+        // If the button is in "Edit" mode
+        if (button.innerText === "Edit") {
+          // Change text to input fields to allow editing
+          cells[0].innerHTML = `<input type="text" value="${students[index].rollNumber}" />`;
+          cells[1].innerHTML = `<input type="text" value="${students[index].name}" />`;
+          cells[2].innerHTML = `<input type="text" value="${students[index].subject}" />`;
+          cells[3].innerHTML = `<input type="text" value="${students[index].marks}" />`;
+          button.innerText = "Save"; // Change button text to "Save"
+          button.classList.replace("edit-btn", "save-btn"); // Change button style to "Save"
+        } else {
+          // Save the edited values back into the state
+          students[index].rollNumber = cells[0].querySelector("input").value;
+          students[index].name = cells[1].querySelector("input").value;
+          students[index].subject = cells[2].querySelector("input").value;
+          students[index].marks = cells[3].querySelector("input").value;
+
+          // Re-render the table to show updated values
+          renderTable();
+        }
+      }
+
+      // Initial render
+      renderTable();
+    </script>
+  </body>
+</html>
